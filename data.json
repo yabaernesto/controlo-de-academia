@@ -1,0 +1,13 @@
+{
+  "instructors": [
+    {
+      "avatar": "https://web.facebook.com/yabaernesto",
+      "name": "Yaba",
+      "birth": 987638400000,
+      "gender": "M",
+      "services": "Peso, Gordura, Estamina",
+      "created_at": 1684416231909,
+      "id": 1
+    }
+  ]
+}
