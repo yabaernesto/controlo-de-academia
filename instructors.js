@@ -1,76 +1,74 @@
-const fs = require('fs')
-const data = require('./data.json')
+const { response } = require('express')
 const { age, date } = require('./utils')
-
-// show 
-exports.show = (request, response) => {
-  const { id } = request.params 
-
-  const foundInstructor = data.instructors.find((instructor) => {
-    return instructor.id == id
-  })
-
-  if (!foundInstructor) return response.send('Instructor not found!')
-
-  const instructor = {
-    ...foundInstructor,
-    age: age(foundInstructor.birth),
-    services: foundInstructor.services.split(','),
-    created_at: new Intl.DateTimeFormat('pt-BR').format(foundInstructor.created_at)
-  }
-
-  return response.render('instructors/show', { instructor })
-}
 
 // create
 exports.post = (request, response) => {
   const keys = Object.keys(request.body)
-  
   for (key of keys) {
-    if (request.body[key] == '') {
+    if (request.body.key == '') {
       return response.send('Please, fill all fields!')
     }
   }
+}
 
-  let { avatar, name, birth, gender, services } = request.body
-  
-  birth = Date.parse(birth)
-  const created_at = Date.now()
-  const id = Number(data.instructors.length + 1)
-
-  data.instructors.push({
-    avatar,
-    name,
-    birth,
-    gender,
-    services,
-    created_at,
-    id
+// show
+exports.show = (request, response) => {
+  const { id } = request.params
+  const foundInstructor = data.instructor.find((instructor) => {
+    return instructor.id == id
   })
 
-  fs.writeFile('data.json', JSON.stringify(data, null, 2), function(err) {
-    if (err) return response.send('Write file error!')
-    
-    return response.redirect('/instructors')
-  })
+  if (!foundInstructor) 
+    return response.send('Instructor not found!')
 
-  // return response.send(request.body)
+  const instructor = {
+    ...foundInstructor,
+    age: age(foundInstructor.birth)
+  }
+
+  return response.render('instructors/show', { instructor: foundInstructor })
 }
 
 // edit
 exports.edit = (request, response) => {
-  const { id } = request.params 
-
-  const foundInstructor = data.instructors.find((instructor) => {
+  const { id } = request.params
+  const foundInstructor = data.instructor.find((instructor) => {
     return instructor.id == id
   })
 
-  if (!foundInstructor) return response.send('Instructor not found!')
+  if (!foundInstructor) 
+    return response.send('Instructor not found!')
+
+  date(foundInstructor.birth)
+
+  return response.render('instructors/edit', { instructor: foundInstructor })
+}
+
+// put
+exports.put = (request, response) => {
+  const { id } = request.body
+  let index = 0
+
+  const foundInstructor = data.instructor.find((instructor, foundIndex) => {
+    if (id === instructor.id) {
+      index = foundIndex
+      return true
+    }
+  })
+
+  if (!foundInstructor) return response.send('Instructor not found')
 
   const instructor = {
     ...foundInstructor,
-    birth: date(foundInstructor.birth)
+    ...request.body,
+    birth: Date.parse(request.body.birth)
   }
 
-  return response.render('instructors/edit', { instructor }) 
+  data.instructors[index] = instructor
+}
+
+// delete
+exports.delete = (request, response) => {
+  const { id } = request.body
+  
 }

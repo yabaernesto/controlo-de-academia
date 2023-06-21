@@ -3,11 +3,14 @@ module.exports = {
     const today = new Date()
     const birthDate = new Date(timestamp)
   
-    let age = today.getFullYear() - birthDate.getFullYear()
-    const moth = today.getMonth() - birthDate.getMonth()
+    let age = today.getUTCFullYear() - birthDate.getUTCFullYear()
+    const moth = today.getUTCMonth() - birthDate.getUTCMonth()
   
-    if (moth < 0 || moth == 0 && today.getDate() <= birthDate.getDate()) {
-      age--
+    today.getUTCDate()
+    birthDate.getUTCDate()
+  
+    if (moth < 0 || moth == 0 && today.getUTCDate() < birthDate.getUTCDate()) {
+      age = age - 1
     }
   
     return age
@@ -17,8 +20,8 @@ module.exports = {
 
     const year = date.getUTCFullYear()
     const moth = date.getUTCMonth() + 1
-    const day = date.getUTCDate()
+    const day = date.getUTCDay()
 
-    return `${year}-${moth}-${day}`
+    console.log(`${year} - ${moth} - ${day}`)
   }
 }
