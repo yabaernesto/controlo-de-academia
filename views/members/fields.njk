@@ -5,19 +5,29 @@
       type="url"
       name="avatar"
       placeholder="http://"
-      value="{{ instructor.avatar }}"
+      value="{{ member.avatar }}"
     >
   </div>
 </div>
 
 <div class="item">
-  <div>Instructor</div>
+  <div>Membro</div>
   <div>
     <input 
       type="text"
       name="name"
-      placeholder="Nome do Instructor"
-      value="{{ instructor.name }}"
+      value="{{ member.name }}"
+    >
+  </div>
+</div>
+
+<div class="item">
+  <div>e-mail</div>
+  <div>
+    <input 
+      type="email"
+      name="email"
+      value="{{ member.email }}"
     >
   </div>
 </div>
@@ -28,7 +38,7 @@
     <input 
       type="date"
       name="birth"
-      value="{{ instructor.birth }}"
+      value="{{ member.birth }}"
     >
   </div>
 </div>
@@ -42,7 +52,7 @@
         name="gender"
         id="M"
         value="M"
-        {% if instructor.gender == 'M' %}
+        {% if member.gender == 'M' %}
           checked
         {% endif %}
       >
@@ -55,7 +65,7 @@
         name="gender"
         id="F"
         value="F"
-        {% if instructor.gender == 'F' %}
+        {% if member.gender == 'F' %}
           checked
         {% endif %}
       >
@@ -65,13 +75,26 @@
 </div>
 
 <div class="item">
-  <div>Área de atuação</div>
+  <div>Tipo Sanguíneo</div>
+  <div>
+    <select name="blood">
+      <option value="A1" selected>A+</option>
+      <option value="A0">A-</option>
+      <option value="AB1">AB+</option>
+      <option value="AB0">AB-</option>
+      <option value="O1">O+</option>
+      <option value="O0">O-</option>
+    </select>
+  </div>
+</div>
+
+<div class="item">
+  <div>Altura (cm)</div>
   <div>
     <input 
-      type="text"
-      name="services"
-      placeholder="Separa os serviços prestados por vírgula"
-      value="{{ instructor.services }}"
+      type="number"
+      name="height"
+      value="{{ member.height }}"  
     >
   </div>
 </div>

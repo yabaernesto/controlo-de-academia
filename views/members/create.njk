@@ -1,7 +1,7 @@
 {% extends "layout.njk" %}
 
 {% block content %}
-  <form class="card" method="post" action="/instructors">
+  <form class="card" method="post" action="/members">
     <section 
       class="avatar" 
       style="background: url('/img/homem/01.jpg') no-repeat center / cover;"
@@ -9,78 +9,9 @@
     </section>
     <section class="details">
 
-      <h3>Novo Instructor</h3>
+      <h3>Novo Membro</h3>
 
-      <div class="item">
-        <div>Avatar URL</div>
-        <div>
-          <input 
-            type="url"
-            name="avatar"
-            placeholder="http://"
-          >
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Instructor</div>
-        <div>
-          <input 
-            type="text"
-            name="name"
-            placeholder="Nome do Instructor"
-          >
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Data de nascimento</div>
-        <div>
-          <input 
-            type="date"
-            name="birth"
-          >
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Sexo</div>
-        <div>
-          <span>
-            <input 
-              type="radio" 
-              name="gender"
-              id="M"
-              value="M"
-              checked
-            >
-            <label for="M">Masculino</label>
-          </span>
-
-          <span>
-            <input 
-              type="radio" 
-              name="gender"
-              id="F"
-              value="F"
-            >
-            <label for="F">Feminino</label>
-          </span>
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Área de atuação</div>
-        <div>
-          <input 
-            type="text"
-            name="services"
-            placeholder="Separa os serviços prestados por vírgula"
-          >
-        </div>
-      </div>
-
-      <button type="submit">Salvar</button>
+     {% include 'members/fields.njk' %}
     </section>
   </form>
 {% endblock %}

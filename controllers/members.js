@@ -26,7 +26,11 @@ exports.post = (request, response) => {
     birth,
     services,
     gender,
-    created_at
+    created_at,
+    email,
+    blood,
+    weight,
+    height,
   })
 }
 
