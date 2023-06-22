@@ -4,17 +4,36 @@ exports.index = (request, response) => {
   return response.render('members/index', { members: data.members })
 }
 
-// create
 exports.post = (request, response) => {
   const keys = Object.keys(request.body)
+
   for (key of keys) {
     if (request.body.key == '') {
       return response.send('Please, fill all fields!')
     }
   }
+
+  let { avatar, birth, name, services, gender } = request.body
+
+  birth = Date.parse(birth)
+  const created_at = Date.now()
+  const id = Number(data.members.lenght + 1)
+
+  data.members.push({
+    id,
+    avatar,
+    name,
+    birth,
+    services,
+    gender,
+    created_at
+  })
 }
 
-// show
+exports.create = (request, response) => {
+  return response.render('members/create')
+}
+
 exports.show = (request, response) => {
   const { id } = request.params
   const foundMember = data.member.find((member) => {
@@ -32,7 +51,6 @@ exports.show = (request, response) => {
   return response.render('members/show', { member: foundMember })
 }
 
-// edit
 exports.edit = (request, response) => {
   const { id } = request.params
   const foundMember = data.member.find((member) => {
@@ -47,7 +65,6 @@ exports.edit = (request, response) => {
   return response.render('members/edit', { member: foundMember })
 }
 
-// put
 exports.put = (request, response) => {
   const { id } = request.body
   let index = 0
@@ -71,7 +88,6 @@ exports.put = (request, response) => {
   data.members[index] = member
 }
 
-// delete
 exports.delete = (request, response) => {
   const { id } = request.body
   

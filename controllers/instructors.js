@@ -4,17 +4,32 @@ exports.index = (request, response) => {
   return response.render('instructors/index', { instructors: data.instructors })
 }
 
-// create
 exports.post = (request, response) => {
   const keys = Object.keys(request.body)
+
   for (key of keys) {
     if (request.body.key == '') {
       return response.send('Please, fill all fields!')
     }
   }
+
+  let { avatar, birth, name, services, gender } = request.body
+
+  birth = Date.parse(birth)
+  const created_at = Date.now()
+  const id = Number(data.members.lenght + 1)
+
+  data.instructors.push({
+    id,
+    avatar,
+    name,
+    birth,
+    services,
+    gender,
+    created_at
+  })
 }
 
-// show
 exports.show = (request, response) => {
   const { id } = request.params
   const foundInstructor = data.instructor.find((instructor) => {
@@ -32,7 +47,10 @@ exports.show = (request, response) => {
   return response.render('instructors/show', { instructor: foundInstructor })
 }
 
-// edit
+exports.create = (request, response) => {
+  return response.render('instructors/create')
+}
+
 exports.edit = (request, response) => {
   const { id } = request.params
   const foundInstructor = data.instructor.find((instructor) => {
@@ -47,7 +65,6 @@ exports.edit = (request, response) => {
   return response.render('instructors/edit', { instructor: foundInstructor })
 }
 
-// put
 exports.put = (request, response) => {
   const { id } = request.body
   let index = 0
@@ -71,7 +88,6 @@ exports.put = (request, response) => {
   data.instructors[index] = instructor
 }
 
-// delete
 exports.delete = (request, response) => {
   const { id } = request.body
   
