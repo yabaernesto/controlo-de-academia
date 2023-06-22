@@ -1,4 +1,4 @@
-const { age, date } = require('./utils')
+const { age, date } = require('../utils')
 
 exports.index = (request, response) => {
   return response.render('instructors/index', { instructors: data.instructors })
