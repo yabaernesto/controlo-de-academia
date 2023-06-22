@@ -1,5 +1,8 @@
-const { response } = require('express')
 const { age, date } = require('./utils')
+
+exports.index = (request, response) => {
+  return response.render('instructors/index', { instructors: data.instructors })
+}
 
 // create
 exports.post = (request, response) => {
@@ -61,7 +64,8 @@ exports.put = (request, response) => {
   const instructor = {
     ...foundInstructor,
     ...request.body,
-    birth: Date.parse(request.body.birth)
+    birth: Date.parse(request.body.birth),
+    id: Number(request.body.id)
   }
 
   data.instructors[index] = instructor
@@ -71,4 +75,9 @@ exports.put = (request, response) => {
 exports.delete = (request, response) => {
   const { id } = request.body
   
+  const filteredInstructors = data.instructors.filter((instructor) => {
+    return instructor.id !== id
+  })
+
+  data.instructors = filteredInstructors
 }
